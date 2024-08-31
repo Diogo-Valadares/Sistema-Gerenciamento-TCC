@@ -1,4 +1,4 @@
-package com.GerenciadorTCC.Controller.view;
+package com.GerenciadorTCC.controller.view;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
