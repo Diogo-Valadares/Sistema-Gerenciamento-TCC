@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class WorkType implements Serializable {
@@ -27,6 +28,9 @@ public class WorkType implements Serializable {
     private String name;
     @Column(nullable = false, length = 500)
     private String description;
+
+    @OneToOne(mappedBy = "workType")
+    private AcademicWork academicWork;
     
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -48,5 +52,11 @@ public class WorkType implements Serializable {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public AcademicWork getAcademicWork() {
+        return academicWork;
+    }
+    public void setAcademicWork(AcademicWork academicWork) {
+        this.academicWork = academicWork;
     }
 }

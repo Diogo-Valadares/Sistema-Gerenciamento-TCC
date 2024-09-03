@@ -100,5 +100,5 @@ public class Person implements Serializable {
     }
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
-    }    
+    }
 }
