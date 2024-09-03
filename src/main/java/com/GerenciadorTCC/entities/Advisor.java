@@ -1,7 +1,10 @@
 package com.GerenciadorTCC.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Advisor extends Person{
@@ -10,6 +13,16 @@ public class Advisor extends Person{
     }    
     public Advisor(long id) {
         super(id);
+    }
+    
+   @OneToMany(mappedBy="advisor")
+    private List<AcademicWork> academicWorks;
+
+    public List<AcademicWork> getAcademicWorks() {
+        return academicWorks;
+    }
+    public void setAcademicWorks(List<AcademicWork> academicWorks) {
+        this.academicWorks = academicWorks;
     }
 
     @Column(nullable=false, length=50)

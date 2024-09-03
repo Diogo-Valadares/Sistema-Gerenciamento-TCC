@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class AcademicWork implements Serializable {
@@ -28,7 +31,37 @@ public class AcademicWork implements Serializable {
 
     @Column
     private Date endDate;
-    
+
+    @OneToOne
+    @JoinColumn(name = "fk_workType")
+    private WorkType workType;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_student")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_advisor")
+    private Advisor advisor;
+
+    public Student getStudent() {
+        return student;
+    }
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
+    }
+    public WorkType getWorkType() {
+        return workType;
+    }
+    public void setWorkType(WorkType workType) {
+        this.workType = workType;
+    }
     public String getTitle() {
         return title;
     }
