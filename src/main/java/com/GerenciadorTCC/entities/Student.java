@@ -18,18 +18,18 @@ public class Student extends Person{
     @OneToMany(mappedBy="student")
     private List<AcademicWork> academicWorks;
 
+    @Column(nullable=false, length=50)
+    private String course;
+
+    @Column(nullable=false)
+    private int courseYear;
+    
     public List<AcademicWork> getAcademicWorks() {
         return academicWorks;
     }
     public void setAcademicWorks(List<AcademicWork> academicWorks) {
         this.academicWorks = academicWorks;
     }
-
-    @Column(nullable=false, length=50)
-    private String course;
-    @Column(nullable=false)
-    private int courseYear;
-    
     public String getCourse() {
         return course;
     }

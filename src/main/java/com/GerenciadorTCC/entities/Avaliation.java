@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Avaliation implements Serializable {
@@ -26,9 +27,19 @@ public class Avaliation implements Serializable {
 
     @Column(nullable = false, length = 5000)
     private String annotation;
+    
     @Column(nullable = false)
     private Date date;
     
+    @OneToOne(mappedBy = "avaliation")
+    private Document document;
+    
+    public Document getDocument() {
+        return document;
+    }
+    public void setDocument(Document document) {
+        this.document = document;
+    }
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
