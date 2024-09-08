@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +35,7 @@ public class TaskDeliver implements Serializable {
     private Task task;
 
     @Column(nullable = false)
-    private Date deliverDate;
+    private LocalDate deliverDate;
 
     public long getId() {
         return id;
@@ -45,11 +45,11 @@ public class TaskDeliver implements Serializable {
         this.id = id;
     }
 
-    public Date getDeliverDate() {
+    public LocalDate getDeliverDate() {
         return deliverDate;
     }
 
-    public void setDeliverDate(Date deliverDate) {
+    public void setDeliverDate(LocalDate deliverDate) {
         this.deliverDate = deliverDate;
     }
     public static long getSerialversionuid() {

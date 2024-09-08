@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -39,7 +39,7 @@ public class Document implements Serializable {
     private String citation;
 
     @Column(nullable=false)
-    private Date uploadDate;
+    private LocalDate uploadDate;
     
     @OneToOne
     @JoinColumn(name = "fk_avaliation")
@@ -97,10 +97,10 @@ public class Document implements Serializable {
     public void setCitation(String citation) {
         this.citation = citation;
     }
-    public Date getUploadDate() {
+    public LocalDate getUploadDate() {
         return uploadDate;
     }
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(LocalDate uploadDate) {
         this.uploadDate = uploadDate;
     }
 }

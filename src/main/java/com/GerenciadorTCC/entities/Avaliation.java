@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ public class Avaliation implements Serializable {
     private String annotation;
     
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
     
     @OneToOne(mappedBy = "avaliation")
     private Document document;
@@ -55,10 +55,10 @@ public class Avaliation implements Serializable {
     public void setAnnotation(String annotation) {
         this.annotation = annotation;
     }
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

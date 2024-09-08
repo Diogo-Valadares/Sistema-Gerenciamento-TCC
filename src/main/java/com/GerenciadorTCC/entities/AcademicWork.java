@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -32,7 +32,7 @@ public class AcademicWork implements Serializable {
     private String title;
 
     @Column
-    private Date endDate;
+    private LocalDate endDate;
 
     @OneToOne
     @JoinColumn(name = "fk_workType")
@@ -97,10 +97,10 @@ public class AcademicWork implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 }

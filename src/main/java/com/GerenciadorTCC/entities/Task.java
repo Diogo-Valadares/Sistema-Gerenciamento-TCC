@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -38,7 +38,7 @@ public class Task implements Serializable {
     private String description;
 
     @Column(nullable = false)
-    private Date deadline;
+    private LocalDate deadline;
 
     @ManyToOne
     @JoinColumn(name = "fk_academicWork")
@@ -80,10 +80,10 @@ public class Task implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Date getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
-    public void setDeadline(Date deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
     public List<TaskDeliver> getTaskDelivers() {
