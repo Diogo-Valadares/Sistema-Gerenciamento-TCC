@@ -7,5 +7,4 @@ import com.GerenciadorTCC.entities.TaskDeliver;
 
 @Repository
 public interface TaskDeliverRepository extends JpaRepository<TaskDeliver, Long> {
-    
 }

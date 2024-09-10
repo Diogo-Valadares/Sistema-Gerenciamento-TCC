@@ -1,7 +1,8 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -30,7 +32,7 @@ public class AcademicWork implements Serializable {
     private String title;
 
     @Column
-    private Date endDate;
+    private LocalDate endDate;
 
     @OneToOne
     @JoinColumn(name = "fk_workType")
@@ -44,6 +46,24 @@ public class AcademicWork implements Serializable {
     @JoinColumn(name = "fk_advisor")
     private Advisor advisor;
 
+    @OneToMany(mappedBy = "academicWork")
+    private List<Document> documents;
+
+    @OneToMany(mappedBy = "academicWork")
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+    public List<Document> getDocuments() {
+        return documents;
+    }
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
     public Student getStudent() {
         return student;
     }
@@ -77,10 +97,10 @@ public class AcademicWork implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 }
