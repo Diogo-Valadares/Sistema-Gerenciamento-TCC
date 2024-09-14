@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class TaskDeliver implements Serializable {
@@ -34,6 +36,8 @@ public class TaskDeliver implements Serializable {
     @JoinColumn(name = "fk_task")
     private Task task;
 
+    @NotNull(message = "A data de entrega da tarefa é obrigatória")
+    @PastOrPresent(message = "A data de entrega da tarefa deve ser passada ou presente")
     @Column(nullable = false)
     private LocalDate deliverDate;
 

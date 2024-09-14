@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class WorkType implements Serializable {
@@ -24,8 +26,11 @@ public class WorkType implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotBlank(message="O nome do tipo de trabalho é obrigatório")
     @Column(nullable = false)
     private String name;
+    @NotBlank(message="A descrição do tipo de trabalho é obrigatória")
+    @Max(value=500, message="A descrição do tipo de trabalho deve ter no máximo 500 caracteres")
     @Column(nullable = false, length = 500)
     private String description;
 
