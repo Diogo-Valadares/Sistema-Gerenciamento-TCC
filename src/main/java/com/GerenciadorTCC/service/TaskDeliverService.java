@@ -17,7 +17,7 @@ public class TaskDeliverService {
         try {
             return Optional.ofNullable(taskDeliverRepository.findByDateRange(startDate, endDate));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar entrega de tarefa por intervalo de datas: " + startDate + " - " + endDate);
+            throw new RuntimeException("Erro ao buscar entrega de tarefa por intervalo de datas\n" + e.getMessage());
         }        
     }
 }

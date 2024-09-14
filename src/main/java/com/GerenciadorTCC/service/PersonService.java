@@ -18,28 +18,28 @@ public class PersonService {
         try {
             return Optional.ofNullable(personRepository.findByName(name));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar pessoa por nome: " + name);
+            throw new RuntimeException("Erro ao buscar pessoa por nome: " + name + "\n" + e.getMessage());
         }        
     }
     public Optional<Person> findByEmail(String email){
         try {
-            return Optional.ofNullable(personRepository.findByName(email));
+            return Optional.ofNullable(personRepository.findByEmail(email));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar pessoa por e-mail: " + email);
+            throw new RuntimeException("Erro ao buscar pessoa por e-mail: " + email + "\n" + e.getMessage());
         }        
     }
     public Optional<Person> findByCpf(String cpf){
         try {
-            return Optional.ofNullable(personRepository.findByName(cpf));
+            return Optional.ofNullable(personRepository.findByCpf(cpf));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar pessoa por CPF: " + cpf);
+            throw new RuntimeException("Erro ao buscar pessoa por CPF: " + cpf + "\n" + e.getMessage());
         }        
     }
     public Optional<Person> findByRg(String rg){
         try {
-            return Optional.ofNullable(personRepository.findByName(rg));
+            return Optional.ofNullable(personRepository.findByRg(rg));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar pessoa por rg: " + rg);
+            throw new RuntimeException("Erro ao buscar pessoa por RG: " + rg + "\n" + e.getMessage());
         }        
     }
 

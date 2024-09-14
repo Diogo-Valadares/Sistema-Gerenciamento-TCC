@@ -1,7 +1,7 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -67,7 +67,7 @@ public class Person implements Serializable {
     @NotNull(message="A data de nascimento é obrigatória")
     @Past(message="A data de nascimento deve ser passada")
     @Column(nullable = false)
-    private Date birthdate;
+    private LocalDate birthdate;
     
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -120,10 +120,10 @@ public class Person implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 }
