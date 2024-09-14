@@ -9,5 +9,5 @@ import com.GerenciadorTCC.entities.Document;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Long> {
     @Query("SELECT d FROM Document d WHERE d.title = ?1")
-    Document findByTitle(String title);
+    public Document findByTitle(String title);
 }

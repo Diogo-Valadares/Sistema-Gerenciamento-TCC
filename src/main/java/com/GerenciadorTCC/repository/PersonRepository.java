@@ -9,11 +9,11 @@ import com.GerenciadorTCC.entities.Person;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("SELECT p FROM Person p WHERE p.name = ?1")
-    Person findByName(String name);
+    public Person findByName(String name);
     @Query("SELECT p FROM Person p WHERE p.email = ?1")
-    Person findByEmail(String email);
+    public Person findByEmail(String email);
     @Query("SELECT p FROM Person p WHERE p.cpf = ?1")
-    Person findByCpf(String cpf);
+    public Person findByCpf(String cpf);
     @Query("SELECT p FROM Person p WHERE p.rg = ?1")
-    Person findByRg(String rg);
+    public Person findByRg(String rg);
 }
