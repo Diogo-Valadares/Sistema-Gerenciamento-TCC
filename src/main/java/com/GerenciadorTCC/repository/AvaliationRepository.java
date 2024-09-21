@@ -9,5 +9,5 @@ import com.GerenciadorTCC.entities.Avaliation;
 @Repository
 public interface AvaliationRepository extends JpaRepository<Avaliation, Long> {
     @Query("SELECT d.avaliation FROM Document d WHERE d.title = ?1")
-    Avaliation getAvaliation(String title);
+    public Avaliation findByTitle(String title);
 }

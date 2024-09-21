@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class AcademicWork implements Serializable {
@@ -28,10 +30,13 @@ public class AcademicWork implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+
+    @NotBlank(message = "O título do trabalho acadêmico é obrigatório")
     @Column(nullable = false)
     private String title;
 
     @Column
+    @Future(message = "A data de término do trabalho acadêmico deve ser futura")
     private LocalDate endDate;
 
     @OneToOne

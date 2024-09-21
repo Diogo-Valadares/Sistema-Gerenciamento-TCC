@@ -9,9 +9,9 @@ import com.GerenciadorTCC.entities.AcademicWork;
 @Repository
 public interface AcademicWorkRepository extends JpaRepository<AcademicWork, Long> {
     @Query("SELECT aw FROM AcademicWork aw WHERE aw.title = ?1")
-    AcademicWork findByTitle(String title);
+    public AcademicWork findByTitle(String title);
     @Query("SELECT aw FROM AcademicWork aw WHERE aw.student.name = ?1")
-    AcademicWork findByStudentName(String name);
+    public AcademicWork findByStudentName(String name);
     @Query("SELECT aw FROM AcademicWork aw WHERE aw.advisor.name = ?1")
-    AcademicWork findByAdvisorName(String name);
+    public AcademicWork findByAdvisorName(String name);
 }

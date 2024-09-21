@@ -9,5 +9,5 @@ import com.GerenciadorTCC.entities.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT t FROM Task t WHERE t.title = ?1")
-    Task findByTitle(String title);
+    public Task findByTitle(String title);
 }
