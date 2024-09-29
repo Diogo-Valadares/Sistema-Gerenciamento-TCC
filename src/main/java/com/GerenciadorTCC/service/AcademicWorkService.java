@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.GerenciadorTCC.entities.AcademicWork;
 import com.GerenciadorTCC.repository.AcademicWorkRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class AcademicWorkService {
 
@@ -33,6 +35,16 @@ public class AcademicWorkService {
             return Optional.ofNullable(academicWorkRepository.findByAdvisorName(name));
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar trabalho acadêmico por nome do orientador: " + name + "\n" + e.getMessage());
+        }        
+    }
+
+    
+    @Transactional
+    public AcademicWork save(AcademicWork academicWork){
+        try {
+            return academicWorkRepository.save(academicWork);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar trabalho acadêmico: " + academicWork.getTitle() + "\n" + e.getMessage());
         }        
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({
 	"com.GerenciadorTCC.controller.apirest",
 	"com.GerenciadorTCC.controller.view",
-	"com.GerenciadorTCC.Service",
+	"com.GerenciadorTCC.service",
 	"com.GerenciadorTCC"}
 )
 @EntityScan("com.GerenciadorTCC.entities")

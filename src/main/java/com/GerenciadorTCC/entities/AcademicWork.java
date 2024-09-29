@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 
@@ -39,7 +38,7 @@ public class AcademicWork implements Serializable {
     @Future(message = "A data de término do trabalho acadêmico deve ser futura")
     private LocalDate endDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "fk_workType")
     private WorkType workType;
 

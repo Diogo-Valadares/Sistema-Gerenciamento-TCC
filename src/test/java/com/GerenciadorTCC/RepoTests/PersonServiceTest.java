@@ -1,28 +1,26 @@
 package com.GerenciadorTCC.RepoTests;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.GerenciadorTCC.entities.Advisor;
 import com.GerenciadorTCC.entities.Person;
 import com.GerenciadorTCC.repository.PersonRepository;
 import com.GerenciadorTCC.service.PersonService;
-
-import java.util.Optional;
-
-import org.assertj.core.api.Assertions;
-import static org.assertj.core.api.Assertions.assertThat;
-import org.mockito.MockitoAnnotations;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("Testes para o serviço de pessoas")
@@ -36,7 +34,7 @@ public class PersonServiceTest {
     private Person person;
 
     private Person createPerson(){
-        person = new Person();
+        person = new Advisor();
         person.setName("John Doe");
         person.setEmail("john.doe@example.com");
         person.setPassword("password123");

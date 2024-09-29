@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.GerenciadorTCC.entities.Person;
 import com.GerenciadorTCC.repository.PersonRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PersonService {
 
@@ -43,4 +45,12 @@ public class PersonService {
         }        
     }
 
+    @Transactional
+    public Person save(Person person){
+        try {
+            return personRepository.save(person);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao salvar pessoa: " + person.getName() + "\n" + e.getMessage());
+        }        
+    }
 }
