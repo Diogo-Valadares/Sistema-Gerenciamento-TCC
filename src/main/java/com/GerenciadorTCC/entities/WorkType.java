@@ -1,15 +1,16 @@
 package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Max;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class WorkType implements Serializable {
@@ -29,13 +30,14 @@ public class WorkType implements Serializable {
     @NotBlank(message="O nome do tipo de trabalho é obrigatório")
     @Column(nullable = false)
     private String name;
+    
     @NotBlank(message="A descrição do tipo de trabalho é obrigatória")
-    @Max(value=500, message="A descrição do tipo de trabalho deve ter no máximo 500 caracteres")
+    @Size(max=500, message="A descrição do tipo de trabalho deve ter no máximo 500 caracteres")
     @Column(nullable = false, length = 500)
     private String description;
 
-    @OneToOne(mappedBy = "workType")
-    private AcademicWork academicWork;
+    @OneToMany(mappedBy = "workType")
+    private List<AcademicWork> academicWorks;
     
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -58,10 +60,10 @@ public class WorkType implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public AcademicWork getAcademicWork() {
-        return academicWork;
+    public List<AcademicWork> getAcademicWork() {
+        return academicWorks;
     }
-    public void setAcademicWork(AcademicWork academicWork) {
-        this.academicWork = academicWork;
+    public void setAcademicWork(List<AcademicWork> academicWorks) {
+        this.academicWorks = academicWorks;
     }
 }

@@ -9,10 +9,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Avaliation implements Serializable {
@@ -30,7 +30,7 @@ public class Avaliation implements Serializable {
     private long id;
 
     @NotBlank(message = "A anotação da avaliação é obrigatória")
-    @Max(value = 5000, message = "A anotação da avaliação deve ter no máximo 5000 caracteres")
+    @Size(max = 5000, message = "A anotação da avaliação deve ter no máximo 5000 caracteres")
     @Column(nullable = false, length = 5000)
     private String annotation;
     

@@ -5,8 +5,8 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Advisor extends Person{
@@ -28,12 +28,12 @@ public class Advisor extends Person{
     }
 
     @NotBlank(message="A especialidade do orientador é obrigatória")
-    @Max(value=50, message="A especialidade do orientador deve ter no máximo 50 caracteres")
+    @Size(max=50, message="A especialidade do orientador deve ter no máximo 50 caracteres")
     @Column(nullable=false, length=50)
     private String speciality;
 
     @NotBlank(message="A disponibilidade do orientador é obrigatória")
-    @Max(value=500, message="A disponibilidade do orientador deve ter no máximo 500 caracteres")
+    @Size(max=500, message="A disponibilidade do orientador deve ter no máximo 500 caracteres")
     @Column(nullable=false, length=500)
     private String disponibility;
     

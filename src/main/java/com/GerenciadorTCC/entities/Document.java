@@ -13,10 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Document implements Serializable {
@@ -34,17 +34,17 @@ public class Document implements Serializable {
     private long id;
 
     @NotBlank(message="O título do documento é obrigatório")
-    @Max(value=50, message="O título do documento deve ter no máximo 50 caracteres")
+    @Size(max=50, message="O título do documento deve ter no máximo 50 caracteres")
     @Column(nullable=false, length=50)
     private String title;
     
     @NotBlank(message="O conteúdo do documento é obrigatório")
-    @Max(value=10000, message="O conteúdo do documento deve ter no máximo 10000 caracteres")
+    @Size(max=10000, message="O conteúdo do documento deve ter no máximo 10000 caracteres")
     @Column(nullable=false, length=10000)
     private String content;
 
     @NotBlank(message="A citação do documento é obrigatória")
-    @Max(value=500, message="A citação do documento deve ter no máximo 500 caracteres")
+    @Size(max=500, message="A citação do documento deve ter no máximo 500 caracteres")
     @Column(nullable=false, length=500)
     private String citation;
 

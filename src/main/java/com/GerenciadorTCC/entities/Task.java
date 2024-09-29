@@ -15,9 +15,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Task implements Serializable {
@@ -35,7 +35,7 @@ public class Task implements Serializable {
     private long id;
 
     @NotBlank(message="O título da tarefa é obrigatório")
-    @Max(value=100, message="O título da tarefa deve ter no máximo 100 caracteres")
+    @Size(max=100, message="O título da tarefa deve ter no máximo 100 caracteres")
     @Column(nullable = false,length=100)
     private String title;
 
@@ -45,7 +45,7 @@ public class Task implements Serializable {
     private TaskStatus status;
 
     @NotBlank(message="A descrição da tarefa é obrigatória")
-    @Max(value=2500, message="A descrição da tarefa deve ter no máximo 2500 caracteres")
+    @Size(max=2500, message="A descrição da tarefa deve ter no máximo 2500 caracteres")
     @Column(nullable = false, length = 2500)
     private String description;
 
