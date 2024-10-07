@@ -22,6 +22,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RequestMapping(path = "api/person")
 public class PersonApiRestController {
 
+    @Autowired
+    private StudentModelAssembler studentAssembler;
+
     @Operation(summary = "Achar uma pessoa pelo nome")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Pessoa encontrada", 
