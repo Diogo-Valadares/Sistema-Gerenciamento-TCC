@@ -10,7 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan({
+@ComponentScan({	
+	"com.GerenciadorTCC.controller.assembler",
 	"com.GerenciadorTCC.controller.apirest",
 	"com.GerenciadorTCC.controller.view",
 	"com.GerenciadorTCC.service",
