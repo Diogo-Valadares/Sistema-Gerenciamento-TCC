@@ -1,9 +1,12 @@
+package com.GerenciadorTCC.controller.representationModel;
 
-public class StudentModel extends RepresentationModel<StudentModel>{
+import org.springframework.hateoas.EntityModel;
+import org.springframework.lang.NonNull;
 
-    long id;
-    String name, email, password, cpf, rg, phone, address, course;    
-    int semester;
-    LocalDate birthdate;    
-    List<AcademicWork> academicWorks;
+import com.GerenciadorTCC.entities.Student;
+
+public class StudentModel extends EntityModel<Student> {
+    public StudentModel(@NonNull Student student) {
+        super(student);
+    }
 }
