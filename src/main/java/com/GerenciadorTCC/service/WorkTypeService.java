@@ -14,6 +14,13 @@ public class WorkTypeService {
     @Autowired
     private WorkTypeRepository workTypeRepository;
 
+    public Optional<WorkType> findById(long id){
+        try {
+            return workTypeRepository.findById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar tipo de trabalho por id: " + id);
+        }
+    }
     public Optional<String> findDescriptionByName(String name){
         try {
             return Optional.ofNullable(workTypeRepository.findDescriptionByName(name));

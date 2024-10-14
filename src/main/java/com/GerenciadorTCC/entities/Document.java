@@ -115,4 +115,8 @@ public class Document implements Serializable {
     public void setUploadDate(LocalDate uploadDate) {
         this.uploadDate = uploadDate;
     }
+
+    public Object findById(long id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

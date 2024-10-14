@@ -17,7 +17,6 @@ import com.GerenciadorTCC.controller.representationModel.AdvisorModel;
 import com.GerenciadorTCC.controller.representationModel.PersonModel;
 import com.GerenciadorTCC.controller.representationModel.StudentModel;
 import com.GerenciadorTCC.entities.Advisor;
-import com.GerenciadorTCC.entities.Person;
 import com.GerenciadorTCC.entities.Student;
 import com.GerenciadorTCC.service.PersonService;
 
@@ -31,7 +30,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequestMapping(path = "api/person")
 public class PersonApiRestController {
-
+    
+    @Autowired
     private StudentModelAssembler studentModelAssembler;    
     @Autowired
     private PersonModelAssembler personModelAssembler;    
@@ -44,13 +44,11 @@ public class PersonApiRestController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Pessoa encontrada", 
             content = {@Content(mediaType = "application/json", 
-                schema = @Schema(implementation = Person.class))}
-        ),
+                schema = @Schema(implementation = PersonModel.class))}),
         @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", 
-        content = @Content
-        )
+            content = @Content)
     })
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PersonModel> findById(@Parameter(description = "ID da pessoa a ser achada") 
     @PathVariable long id) throws Exception{       
         var pessoa = personService.findById(id);
@@ -62,13 +60,11 @@ public class PersonApiRestController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Pessoa encontrada", 
             content = {@Content(mediaType = "application/json", 
-                schema = @Schema(implementation = Person.class))}
-        ),
+                schema = @Schema(implementation = PersonModel.class))}),
         @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", 
-        content = @Content
-        )
+            content = @Content)
     })
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<PersonModel> findByName(@Parameter(description = "Nome da pessoa a ser achada") 
     @PathVariable String name) throws Exception{         
         var pessoa = personService.findByName(name);
@@ -78,15 +74,15 @@ public class PersonApiRestController {
 
     @Operation(summary = "Apagar uma pessoa pelo  ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Pessoa deletada", 
-            content = @Content
-        ),
-        @ApiResponse(responseCode = "403", description = "Sem privilégios para apagar pessoa", 
-        content = @Content
-        ),
-        @ApiResponse(responseCode = "404", description = "Pessoa não encontrada", 
-        content = @Content
-        )
+        @ApiResponse(
+            responseCode = "204", description = "Pessoa deletada", 
+            content = @Content),
+        @ApiResponse(
+            responseCode = "403", description = "Sem privilégios para apagar pessoa", 
+            content = @Content),
+        @ApiResponse(
+            responseCode = "404", description = "Pessoa não encontrada", 
+            content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@Parameter(description = "Nome da pessoa a ser achada") 
@@ -102,15 +98,16 @@ public class PersonApiRestController {
 
     @Operation(summary = "Atualizar um estudante")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Estudante atualizado", 
-            content = @Content
-        ),
-        @ApiResponse(responseCode = "403", description = "Sem privilégios para atualizar estudante", 
-        content = @Content
-        ),
-        @ApiResponse(responseCode = "404", description = "Estudante não encontrado", 
-        content = @Content
-        )
+        @ApiResponse(
+            responseCode = "200", description = "Estudante atualizado", 
+            content = {@Content(mediaType = "application/json", 
+                schema = @Schema(implementation = StudentModel.class))}),
+        @ApiResponse(
+            responseCode = "403", description = "Sem privilégios para atualizar estudante", 
+            content = @Content),
+        @ApiResponse(
+            responseCode = "404", description = "Estudante não encontrado", 
+            content = @Content)
     })        
     @PutMapping("/student/{student}")
     public ResponseEntity<StudentModel> updateStudent(@Parameter(description = "Objeto do estudante sendo atualizado") 
@@ -121,31 +118,33 @@ public class PersonApiRestController {
 
     @Operation(summary = "criar um estudante")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Estudante criado", 
-            content = @Content
-        ),
-        @ApiResponse(responseCode = "403", description = "Sem privilégios para criar estudante", 
-        content = @Content
-        )
+        @ApiResponse(
+            responseCode = "201", description = "Estudante criado", 
+            content = {@Content(mediaType = "application/json", 
+                schema = @Schema(implementation = StudentModel.class))}),
+        @ApiResponse(
+            responseCode = "403", description = "Sem privilégios para criar estudante", 
+            content = @Content)
     })    
     @PostMapping("/student/{student}")
     public ResponseEntity<StudentModel> createStudent(@Parameter(description = "Objeto do estudante sendo criado") 
     @PathVariable Student student) throws Exception{
         var createdStudent = personService.createStudent(student);
-        return ResponseEntity.ok(studentModelAssembler.toModel(createdStudent));
+        return ResponseEntity.status(201).body(studentModelAssembler.toModel(createdStudent));
     }
 
     @Operation(summary = "Atualizar um orientador")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Orientador atualizado", 
-            content = @Content
-        ),
-        @ApiResponse(responseCode = "403", description = "Sem privilégios para atualizar orientador", 
-        content = @Content
-        ),
-        @ApiResponse(responseCode = "404", description = "Orientador não encontrado", 
-        content = @Content
-        )
+        @ApiResponse(
+            responseCode = "200", description = "Orientador atualizado", 
+            content = {@Content(mediaType = "application/json", 
+                schema = @Schema(implementation = AdvisorModel.class))}),
+        @ApiResponse(
+            responseCode = "403", description = "Sem privilégios para atualizar orientador", 
+            content = @Content),
+        @ApiResponse(
+            responseCode = "404", description = "Orientador não encontrado", 
+            content = @Content)
     })
     @PutMapping("/advisor/{advisor}")
     public ResponseEntity<AdvisorModel> updateAdvisor(@Parameter(description = "Objeto do orientador sendo atualizado")
@@ -156,17 +155,16 @@ public class PersonApiRestController {
 
     @Operation(summary = "criar um orientador")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Orientador criado", 
-            content = @Content
-        ),
+        @ApiResponse(responseCode = "201", description = "Orientador criado", 
+            content = {@Content(mediaType = "application/json", 
+                schema = @Schema(implementation = AdvisorModel.class))}),
         @ApiResponse(responseCode = "403", description = "Sem privilégios para criar orientador", 
-        content = @Content
-        )
+            content = @Content)
     })
     @PostMapping("/advisor/{advisor}")
     public ResponseEntity<AdvisorModel> createAdvisor(@Parameter(description = "Objeto do orientador sendo criado")
     @PathVariable Advisor advisor) throws Exception{
         var createdAdvisor = personService.createAdvisor(advisor);
-        return ResponseEntity.ok(advisorModelAssembler.toModel(createdAdvisor));
+        return ResponseEntity.status(201).body(advisorModelAssembler.toModel(createdAdvisor));
     }
 }

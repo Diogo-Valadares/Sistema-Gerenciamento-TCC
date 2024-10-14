@@ -24,6 +24,7 @@ public class TaskDeliverService {
     }
     public TaskDeliver save(TaskDeliver taskDeliver){
         try {
+            taskDeliver.setDeliverDate(LocalDate.now());
             return taskDeliverRepository.save(taskDeliver);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar entrega de tarefa: " + taskDeliver.getTask().getTitle() + 
