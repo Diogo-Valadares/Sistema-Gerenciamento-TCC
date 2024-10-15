@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${task.id} != null ? 'Editar Tarefa' : 'Criar Nova Tarefa'">Formulário de Tarefa</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1 th:text="${task.id} != null ? 'Editar Tarefa' : 'Criar Nova Tarefa'">Formulário de Tarefa</h1>
+    </header>
+    
+    <section>
+        <form th:action="@{${task.id} != null ? '/view/task/update/' + ${task.id} : '/view/task'}" th:object="${task}" method="post">
+            <div>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" th:field="*{title}" maxlength="100" required />
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            </div>
+            <div>
+                <label for="description">Descrição:</label>
+                <textarea id="description" name="description" th:field="*{description}" maxlength="2500" required></textarea>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <select id="status" name="status" th:field="*{status}" required>
+                    <option value="" disabled th:if="${task.status == null}">Selecione um status</option>
+                    <option th:each="status : ${#lists.array('TODO', 'IN_PROGRESS', 'DONE')}" 
+                            th:value="${status}" th:text="${status}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+            </div>
+            <div>
+                <label for="deadline">Prazo:</label>
+                <input type="date" id="deadline" name="deadline" th:field="*{deadline}" required />
+                <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></div>
+            </div>
+            <div>
+                <button type="submit" th:text="${task.id} != null ? 'Atualizar' : 'Criar'}">Criar</button>
+            </div>
+        </form>
+        
+        <a th:href="@{/view/task}" class="btn btn-secondary">Voltar para Lista de Tarefas</a>
+    </section>
+</body>
+</html>
