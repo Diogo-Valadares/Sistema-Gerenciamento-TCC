@@ -1,5 +1,6 @@
 package com.GerenciadorTCC.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,11 @@ public class DocumentService {
         }
     }
 
+    public List<Document> findAll() {
+        try {
+            return documentRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar todas as tarefas\n" + e.getMessage());
+        }
+    }
 }

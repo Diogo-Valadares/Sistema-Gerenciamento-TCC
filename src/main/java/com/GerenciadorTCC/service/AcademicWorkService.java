@@ -1,5 +1,6 @@
 package com.GerenciadorTCC.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class AcademicWorkService {
             throw new RuntimeException("Erro ao buscar trabalho acadêmico por ID: " + id + "\n" + e.getMessage());
         }
     }
+
     public Optional<AcademicWork> findByTitle(String title){
         try {
             return Optional.ofNullable(academicWorkRepository.findByTitle(title));
@@ -30,6 +32,7 @@ public class AcademicWorkService {
             throw new RuntimeException("Erro ao buscar trabalho acadêmico por título: " + title + "\n" + e.getMessage());
         }        
     }
+
     public Optional<AcademicWork> findByStudentName(String name){
         try {
             return Optional.ofNullable(academicWorkRepository.findByStudentName(name));
@@ -37,12 +40,21 @@ public class AcademicWorkService {
             throw new RuntimeException("Erro ao buscar trabalho acadêmico por nome do estudante: " + name + "\n" + e.getMessage());
         }        
     }
+
     public Optional<AcademicWork> findByAdvisorName(String name){
         try {
             return Optional.ofNullable(academicWorkRepository.findByAdvisorName(name));
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar trabalho acadêmico por nome do orientador: " + name + "\n" + e.getMessage());
         }        
+    }
+
+    public List<AcademicWork> findAll() {
+        try {
+            return academicWorkRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar todos os trabalhos acadêmicos\n" + e.getMessage());
+        }
     }
 
     @Transactional

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,6 @@ public class AcademicWork implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     @NotBlank(message = "O título do trabalho acadêmico é obrigatório")
     @Column(nullable = false)
     private String title;
@@ -47,13 +47,13 @@ public class AcademicWork implements Serializable {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "fk_advisor")
+    @JoinColumn(name = "fk_advisor",nullable=true)
     private Advisor advisor;
 
-    @OneToMany(mappedBy = "academicWork")
+    @OneToMany(mappedBy = "academicWork", cascade = CascadeType.ALL)
     private List<Document> documents;
 
-    @OneToMany(mappedBy = "academicWork")
+    @OneToMany(mappedBy = "academicWork", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     public List<Task> getTasks() {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Trabalhos Acadêmicos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Lista de Trabalhos Acadêmicos</h1>        
+        <a th:href="@{/home/}" class="btn btn-primary">Voltar</a>
+        <a th:href="@{/academicWorks/new}" class="btn btn-primary">Criar Novo Trabalho Acadêmico</a>
+    </header>
+    
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Data de Término</th>
+                    <th>Tipo de Trabalho</th>
+                    <th>Estudante</th>
+                    <th>Orientador</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="academicWork : ${academicWorks}">
+                    <td th:text="${academicWork.id}"></td>
+                    <td th:text="${academicWork.title}"></td>
+                    <td th:text="${academicWork.endDate}"></td>
+                    <td th:text="${academicWork.workType.name}"></td>
+                    <td th:text="${academicWork.student.name}"></td>
+                    <td th:text="${academicWork.advisor != null ? academicWork.advisor.name : 'N/A'}"></td>
+                    <td>
+                        <a th:href="@{/academicWorks/edit/{id}(id=${academicWork.id})}" class="btn btn-secondary">Editar</a>
+                        <a th:href="@{/academicWorks/delete/{id}(id=${academicWork.id})}" class="btn btn-danger">Excluir</a>
+                        <a th:href="@{/academicWorks/documents/{id}(id=${academicWork.id})}" class="btn btn-info">Ver Documentos</a>
+                        <a th:href="@{/academicWorks/tasks/{id}(id=${academicWork.id})}" class="btn btn-info">Ver Tarefas</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

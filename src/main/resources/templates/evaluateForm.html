@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Avaliação</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Criar Nova Avaliação</h1>
+    <form th:action="@{'/documents/evaluate/' + ${avaliation.id}}" th:object="${avaliation}" method="post">
+        <div>
+            <label for="annotation">Anotação:</label>
+            <textarea id="annotation" name="annotation" required maxlength="5000"></textarea>
+            <div class="error" th:if="${#fields.hasErrors('annotation')}" th:errors="*{annotation}"></div>
+        </div>
+        <div>
+            <label for="date">Data:</label>
+            <input type="date" id="date" name="date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+            <div class="error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+        </div>
+        <div>
+            <button type="submit">Salvar Avaliação</button>
+            <button type="button" onclick="window.location.href='/documents'">Cancelar</button>
+        </div>
+    </form>
+</body>
+</html>

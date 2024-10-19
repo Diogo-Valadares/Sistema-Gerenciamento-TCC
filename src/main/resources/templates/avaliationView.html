@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliação</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Detalhes de avaliação</h1>
+    <div>
+        <label>ID:</label>
+        <span th:text="${avaliation.id}"></span>
+    </div>
+    <div>
+        <label>Anotação:</label>
+        <p th:text="${avaliation.annotation}"></p>
+    </div>
+    <div>
+        <label>Data de avaliação:</label>
+        <span th:text="${avaliation.date}"></span>
+    </div>
+    <div>
+        <label>ID do documento:</label>
+        <span th:text="${avaliation.document.id}"></span>
+    </div>
+    <div>
+        <button onclick="window.location.href='/documents'">Voltar para documentos</button>
+    </div>
+</body>
+</html>

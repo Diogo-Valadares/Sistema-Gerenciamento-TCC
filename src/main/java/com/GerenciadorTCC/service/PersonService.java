@@ -1,5 +1,6 @@
 package com.GerenciadorTCC.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +146,25 @@ public class PersonService {
             return personRepository.save(advisor);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao criar orientador: " + advisor.getName() + "\n" + e.getMessage());
+        }
+    }
+
+    public List<Person> findAll() {
+        try {
+            return personRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar todas as pessoas\n" + e.getMessage());
+        }
+    }
+
+    public List<? extends Person> findAllByType(Class<? extends Person> type) {
+        try {
+            return personRepository.findAll().stream()
+                    .filter(type::isInstance)
+                    .map(type::cast)
+                    .toList();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar todas as pessoas do tipo: " + type.getSimpleName() + "\n" + e.getMessage());
         }
     }
 }

@@ -2,6 +2,7 @@ package com.GerenciadorTCC.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class Advisor extends Person{
         super(id);
     }
     
-   @OneToMany(mappedBy="advisor")
+    @OneToMany(mappedBy="advisor", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<AcademicWork> academicWorks;
 
     public List<AcademicWork> getAcademicWorks() {

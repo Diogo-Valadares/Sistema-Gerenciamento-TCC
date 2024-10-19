@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${academicWork.id != 0} ? 'Editar Trabalho Acadêmico' : 'Criar Novo Trabalho Acadêmico'">Formulário de Trabalho Acadêmico</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1 th:text="${academicWork.id != 0} ? 'Editar Trabalho Acadêmico' : 'Criar Novo Trabalho Acadêmico'">Formulário de Trabalho Acadêmico</h1>
+    </header>
+    <section>
+        <form th:action="@{${academicWork.id != 0} ? '/academicWorks/update/' + ${academicWork.id} : '/academicWorks'}" th:object="${academicWork}" method="post">
+            <div>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" th:field="*{title}" maxlength="50" required />
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            </div>
+            <div>
+                <label for="endDate">Data de Término:</label>
+                <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required />
+                <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+            </div>
+            <div>
+                <label for="workType">Tipo de Trabalho:</label>
+                <select id="workType" name="workType.id" th:field="*{workType.id}" required>
+                    <option value="0" disabled selected>Selecione um tipo de trabalho</option>
+                    <option th:each="workType : ${workTypes}" th:value="${workType.id}" th:text="${workType.name}"></option>
+                </select>
+                <p th:each="workType : ${workTypes}" th:if="${workType.id == academicWork.workType.id}" th:text="${workType.description}"></p>
+            </div>
+            <div>
+                <label for="student">Estudante:</label>
+                <select id="student" name="student.id" th:field="*{student.id}" required>
+                    <option value="0" disabled selected>Selecione um estudante</option>
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('student.id')}" th:errors="*{student.id}"></div>
+            </div>
+            <div>
+                <label for="advisor">Orientador:</label>
+                <select id="advisor" name="advisor.id" th:field="*{advisor.id}">
+                    <option value="0" disabled selected>Selecione um orientador (opcional)</option>
+                    <option th:each="advisor : ${advisors}" th:value="${advisor.id}" th:text="${advisor.name}"></option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" th:if="${academicWork.id != 0}" th:text="'Atualizar'">Atualizar</button>
+                <button type="submit" th:if="${academicWork.id == 0}" th:text="'Criar'">Criar</button>
+            </div>
+        </form>
+        <a th:href="@{/academicWorks}" class="btn btn-secondary">Voltar para Lista de Trabalhos Acadêmicos</a>
+    </section>
+</body>
+</html>

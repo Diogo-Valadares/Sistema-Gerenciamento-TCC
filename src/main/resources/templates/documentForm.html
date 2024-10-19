@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${document.id != 0} ? 'Editar Documento' : 'Criar Novo Documento'">Formulário de Documento</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1 th:text="${document.id != 0} ? 'Editar Documento' : 'Criar Novo Documento'">Formulário de Documento</h1>
+    </header>
+    <section>
+        <form th:action="@{${document.id != 0} ? '/documents/update/' + ${document.id} : '/documents'}" th:object="${document}" method="post">
+            <div>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" th:field="*{title}" maxlength="50" required />
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            </div>
+            <div>
+                <label for="content">Conteúdo:</label>
+                <textarea id="content" name="content" th:field="*{content}" maxlength="10000" required></textarea>
+                <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+            </div>
+            <div>
+                <label for="citation">Citação:</label>
+                <textarea id="citation" name="citation" th:field="*{citation}" maxlength="500" required></textarea>
+                <div th:if="${#fields.hasErrors('citation')}" th:errors="*{citation}"></div>
+            </div>
+            <div>
+                <label for="uploadDate">Data de Upload:</label>
+                <input type="date" id="uploadDate" name="uploadDate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
+                <div th:if="${#fields.hasErrors('uploadDate')}" th:errors="*{uploadDate}"></div>
+            </div>
+            <div>
+                <label for="task">Tarefa:</label>
+                <select id="task" name="taskId" required>
+                    <option value="" disabled selected>Selecione uma tarefa</option>
+                    <option th:each="task : ${tasks}" th:value="${task.id}" th:text="${task.title}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="academicWork">Trabalho Acadêmico:</label>
+                <select id="academicWork" name="academicWorkId" required>
+                    <option value="" disabled selected>Selecione um trabalho acadêmico</option>
+                    <option th:each="academicWork : ${academicWorks}" th:value="${academicWork.id}" th:text="${academicWork.title}"></option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" th:if="${document.id != 0}" th:text="'Atualizar'">Atualizar</button>
+                <button type="submit" th:if="${document.id == 0}" th:text="'Criar'">Criar</button>
+            </div>
+        </form>
+        <a th:href="@{/documents}" class="btn btn-secondary">Voltar para Lista de Documentos</a>
+    </section>
+</body>
+</html>

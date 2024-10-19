@@ -1,19 +1,23 @@
 package com.GerenciadorTCC.controller.view;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.GerenciadorTCC.controller.assembler.TaskModelAssembler;
 import com.GerenciadorTCC.entities.Task;
+import com.GerenciadorTCC.service.AcademicWorkService;
 import com.GerenciadorTCC.service.TaskService;
+
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping(path = "/tasks")
 public class TaskViewController {
@@ -21,6 +25,9 @@ public class TaskViewController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private AcademicWorkService academicworkService;
+    
     @Autowired
     private TaskModelAssembler taskModelAssembler;
 
@@ -46,6 +53,13 @@ public class TaskViewController {
         }
     }
 
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("task", new Task());
+        model.addAttribute("academicWorks", academicworkService.findAll());
+        return "taskForm";
+    }
+
     @GetMapping
     public String listTasks(Model model) {
         var tasks = taskService.findAll();
@@ -53,37 +67,46 @@ public class TaskViewController {
         return "taskList";
     }
 
-    @GetMapping("/new")
-    public String showCreateForm(Model model) {
-        model.addAttribute("task", new Task());
-        return "taskForm";
-    }
-    @GetMapping("/test")
-    public String teste() {
-        return "home";
+    @PostMapping
+    public String createTask(@Valid @ModelAttribute Task task, BindingResult result, @RequestParam Long academicWorkId, Model model) {
+        if (result.hasErrors()) {            
+            model.addAttribute("academicWorks", academicworkService.findAll());
+            model.addAttribute("task", task);
+            return "taskForm";
+        }
+        var academicWork = academicworkService.findById(academicWorkId);
+        if (academicWork.isPresent()) {
+            task.setAcademicWork(academicWork.get());
+        }
+        taskService.save(task);
+        return "redirect:/tasks";
     }
 
-    @PostMapping
-    public String createTask(@ModelAttribute Task task) {
-        taskService.save(task);
+    @PostMapping("/update/{id}")
+    public String updateTask(@PathVariable long id, @Valid @ModelAttribute Task task, BindingResult result, @RequestParam Long academicWorkId, Model model) {
+        if (result.hasErrors()) {            
+            model.addAttribute("academicWorks", academicworkService.findAll());
+            model.addAttribute("task", task);
+            return "taskForm";
+        }
+        var academicWork = academicworkService.findById(academicWorkId);
+        if (academicWork.isPresent()) {
+            task.setAcademicWork(academicWork.get());
+        }
+        taskService.update(task);
         return "redirect:/tasks";
     }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable long id, Model model) {
         var task = taskService.findById(id);
-        if (task.isPresent()) {
+        if (task.isPresent()) {            
+            model.addAttribute("academicWorks", academicworkService.findAll());
             model.addAttribute("task", task.get());
             return "taskForm";
         } else {
             return "taskNotFound";
         }
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateTask(@PathVariable long id, @ModelAttribute Task task) {
-        taskService.update(task);
-        return "redirect:/tasks";
     }
 
     @GetMapping("/delete/{id}")

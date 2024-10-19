@@ -29,11 +29,11 @@ public class TaskDeliver implements Serializable {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_document")
+    @JoinColumn(name = "fk_document", nullable=false)
     private Document document;
     
     @ManyToOne
-    @JoinColumn(name = "fk_task")
+    @JoinColumn(name = "fk_task", nullable=false)
     private Task task;
 
     @NotNull(message = "A data de entrega da tarefa é obrigatória")

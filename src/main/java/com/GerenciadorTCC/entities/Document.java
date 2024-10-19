@@ -2,8 +2,10 @@ package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,9 +24,12 @@ import jakarta.validation.constraints.Size;
 public class Document implements Serializable {
 
     public Document() {
+        this.taskDelivers = new ArrayList<>();
     }
+
     public Document(long id) {
         this.id = id;
+        this.taskDelivers = new ArrayList<>();
     }
     
     private static final long serialVersionUID = 1L;
@@ -53,7 +58,7 @@ public class Document implements Serializable {
     @Column(nullable=false)
     private LocalDate uploadDate;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "fk_avaliation")
     private Avaliation avaliation;
 
@@ -61,15 +66,22 @@ public class Document implements Serializable {
     @JoinColumn(name = "fk_academicWork")
     private AcademicWork academicWork;
 
-    @OneToMany(mappedBy="document")
+    @OneToMany(mappedBy="document", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskDeliver> taskDelivers;
 
     public List<TaskDeliver> getTaskDelivers() {
         return taskDelivers;
     }
     public void setTaskDelivers(List<TaskDeliver> taskDelivers) {
-        this.taskDelivers = taskDelivers;
-    }
+        if (this.taskDelivers != null) {
+            this.taskDelivers.clear();
+            if (taskDelivers != null) {
+                this.taskDelivers.addAll(taskDelivers);
+            }
+        } else {
+            this.taskDelivers = taskDelivers;
+        }
+    } 
     public Avaliation getAvaliation() {
         return avaliation;
     }

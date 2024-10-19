@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({	
 	"com.GerenciadorTCC.controller.assembler",
 	"com.GerenciadorTCC.controller.apirest",
+	"com.GerenciadorTCC.controller.exception",
 	"com.GerenciadorTCC.controller.view",
 	"com.GerenciadorTCC.service",
 	"com.GerenciadorTCC"}

@@ -1,5 +1,6 @@
 package com.GerenciadorTCC.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,14 @@ public class TaskService {
             }
         } catch (Exception e) {
             throw new RuntimeException("Erro ao deletar tarefa por ID: " + id + "\n" + e.getMessage());
+        }
+    }
+
+    public List<Task> findAll() {
+        try {
+            return taskRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar todas as tarefas\n" + e.getMessage());
         }
     }
 }

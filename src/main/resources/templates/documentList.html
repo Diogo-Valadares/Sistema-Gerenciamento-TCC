@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Documentos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Lista de Documentos</h1>        
+        <a th:href="@{/home/}" class="btn btn-primary">Voltar</a>
+        <a th:href="@{/documents/new}" class="btn btn-primary">Criar Novo Documento</a>
+    </header>
+    
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Conteúdo</th>
+                    <th>Citação</th>
+                    <th>Data de Upload</th>
+                    <th>Trabalho Acadêmico</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="document : ${documents}">
+                    <td th:text="${document.id}"></td>
+                    <td th:text="${document.title}"></td>
+                    <td th:text="${document.content}"></td>
+                    <td th:text="${document.citation}"></td>
+                    <td th:text="${document.uploadDate}"></td>
+                    <td th:text="${document.academicWork.title}"></td>
+                    <td>
+                        <a th:href="@{/documents/edit/{id}(id=${document.id})}" class="btn btn-secondary">Editar</a>
+                        <a th:href="@{/documents/delete/{id}(id=${document.id})}" class="btn btn-danger">Excluir</a>
+                        <a th:if="${document.avaliation != null}" th:href="@{/documents/avaliation/{id}(id=${document.id})}" class="btn btn-info">Ver Avaliação</a>
+                        <a th:href="@{/documents/evaluate/{id}(id=${document.id})}" class="btn btn-info">Adicionar Avaliação</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

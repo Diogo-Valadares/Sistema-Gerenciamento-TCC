@@ -74,6 +74,11 @@ public class Runner implements CommandLineRunner{
         workTypeTest.setName("Artigo");
         workTypeTest.setDescription("Artigo científico com revisão bibliográfica e pesquisa de campo");
         workTypeService.save(workTypeTest);
+        var workTypeMonograph = new WorkType();
+        workTypeMonograph.setName("Monografia");
+        workTypeMonograph.setDescription("Monografia com revisão bibliográfica e pesquisa de campo");
+        workTypeService.save(workTypeMonograph);
+        
 
         var academicWorkTest = new AcademicWork();
         academicWorkTest.setTitle("Título do Trabalho");

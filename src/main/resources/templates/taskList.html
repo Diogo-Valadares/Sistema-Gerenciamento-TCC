@@ -7,7 +7,8 @@
 </head>
 <body>
     <header>
-        <h1>Lista de Tarefas</h1>
+        <h1>Lista de Tarefas</h1>        
+        <a th:href="@{/home/}" class="btn btn-primary">Voltar</a>
         <a th:href="@{/tasks/new}" class="btn btn-primary">Criar Nova Tarefa</a>
     </header>
     
@@ -19,6 +20,8 @@
                     <th>Título</th>
                     <th>Descrição</th>
                     <th>Status</th>
+                    <th>Data Final</th>
+                    <th>Trabalho Acadêmico</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -28,6 +31,8 @@
                     <td th:text="${task.title}"></td>
                     <td th:text="${task.description}"></td>
                     <td th:text="${task.status}"></td>
+                    <td th:text="${task.deadline}"></td>
+                    <td th:text="${task.academicWork.title}"></td>
                     <td>
                         <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-secondary">Editar</a>
                         <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-danger">Excluir</a>

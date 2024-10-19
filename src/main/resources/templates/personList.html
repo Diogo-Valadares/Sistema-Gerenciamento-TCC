@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pessoas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Lista de Pessoas</h1>        
+        <a th:href="@{/home/}" class="btn btn-primary">Voltar</a>
+        <a th:href="@{/people/new/student}" class="btn btn-primary">Criar Novo Estudante</a>
+        <a th:href="@{/people/new/advisor}" class="btn btn-primary">Criar Nova Orientador</a>
+    </header>
+    
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Data de Nascimento</th>
+                    <th>Curso</th>
+                    <th>Período</th>
+                    <th>Especialidade</th>
+                    <th>Disponibilidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="person, stat : ${people}">
+                    <td th:text="${person.id}"></td>
+                    <td th:text="${person.name}"></td>
+                    <td th:text="${person.email}"></td>
+                    <td th:text="${person.cpf}"></td>
+                    <td th:text="${person.rg}"></td>
+                    <td th:text="${person.phone}"></td>
+                    <td th:text="${person.address}"></td>
+                    <td th:text="${person.birthdate}"></td>
+                    <td th:text="${person instanceof T(com.GerenciadorTCC.entities.Student) ? person.course : 'N/A'}"></td>
+                    <td th:text="${person instanceof T(com.GerenciadorTCC.entities.Student) ? person.semester : 'N/A'}"></td>
+                    <td th:text="${person instanceof T(com.GerenciadorTCC.entities.Advisor) ? person.speciality : 'N/A'}"></td>
+                    <td th:text="${person instanceof T(com.GerenciadorTCC.entities.Advisor) ? person.disponibility : 'N/A'}"></td>
+                    <td>
+                        <a th:href="${editUrls[stat.index]}" class="btn btn-secondary">Editar</a>
+                        <a th:href="@{/people/delete/{id}(id=${person.id})}" class="btn btn-danger">Excluir</a>
+                        <a th:if="${person instanceof T(com.GerenciadorTCC.entities.Student)}" th:href="@{/academicWork/new/{studentId}(studentId=${person.id})}" class="btn btn-success">Criar Trabalho Acadêmico</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

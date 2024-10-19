@@ -2,6 +2,7 @@ package com.GerenciadorTCC.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class Student extends Person{
         super(id);
     }
 
-    @OneToMany(mappedBy="student")
+    @OneToMany(mappedBy="student", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<AcademicWork> academicWorks;
 
     @NotNull(message="O curso do aluno é obrigatório")

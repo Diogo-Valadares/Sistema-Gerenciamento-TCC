@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${advisor.id != 0} ? 'Editar Orientador' : 'Criar Novo Orientador'">Advisor Form</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <div class="container">
+        <h2 th:text="${advisor.id != 0} ? 'Editar Orientador' : 'Criar Novo Orientador'">Advisor Form</h2>
+        <form th:action="@{${advisor.id != 0} ? '/people/update/advisor/' + ${advisor.id} : '/people/new/advisor'}" th:object="${advisor}" method="post">
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required
+                       minlength="1" maxlength="50" title="O nome é obrigatório"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required
+                       maxlength="50" title="O email deve ser válido"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" th:field="*{password}" class="form-control" required
+                       minlength="8" maxlength="50" title="A senha deve ter entre 8 e 50 caracteres"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" th:field="*{cpf}" class="form-control" required
+                       pattern="\d{11}" title="O CPF é inválido"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
+            </div>
+            <div class="form-group">
+                <label for="rg">RG</label>
+                <input type="text" id="rg" name="rg" th:field="*{rg}" class="form-control" required
+                       pattern="\d{2}\.\d{3}\.\d{3}-\d{2}" title="O RG deve estar no formato XX.XXX.XXX-XX"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefone</label>
+                <input type="text" id="phone" name="phone" th:field="*{phone}" class="form-control" required
+                       pattern="\(\d{2}\)\d{4,5}-\d{4}" title="O telefone deve estar no formato (XX)XXXXX-XXXX"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+            </div>
+            <div class="form-group">
+                <label for="address">Endereço</label>
+                <input type="text" id="address" name="address" th:field="*{address}" class="form-control" required
+                       maxlength="500" title="O endereço deve ter no máximo 500 caracteres"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Data de Nascimento</label>
+                <input type="date" id="birthdate" name="birthdate" th:field="*{birthdate}" class="form-control" required
+                       title="A data de nascimento deve ser passada"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}"></div>
+            </div>
+            <div class="form-group">
+                <label for="speciality">Especialidade</label>
+                <input type="text" id="speciality" name="speciality" th:field="*{speciality}" class="form-control" required
+                       maxlength="50" title="A especialidade deve ter no máximo 50 caracteres"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('speciality')}" th:errors="*{speciality}"></div>
+            </div>
+            <div class="form-group">
+                <label for="disponibility">Disponibilidade</label>
+                <input type="text" id="disponibility" name="disponibility" th:field="*{disponibility}" class="form-control" required
+                       maxlength="500" title="A disponibilidade deve ter no máximo 500 caracteres"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('disponibility')}" th:errors="*{disponibility}"></div>
+            </div>
+            <button type="submit" class="btn btn-primary" th:text="${advisor.id != 0} ? 'Atualizar' : 'Salvar'">Salvar</button>
+        </form>
+    </div>
+</body>
+</html>

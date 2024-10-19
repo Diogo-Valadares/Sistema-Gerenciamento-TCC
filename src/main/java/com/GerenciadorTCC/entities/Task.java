@@ -2,8 +2,10 @@ package com.GerenciadorTCC.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,9 +25,12 @@ import jakarta.validation.constraints.Size;
 public class Task implements Serializable {
 
     public Task() {
+        this.taskDelivers = new ArrayList<>();
     }
+
     public Task(long id) {
         this.id = id;
+        this.taskDelivers = new ArrayList<>();
     }
     
     private static final long serialVersionUID = 1L;
@@ -58,7 +63,7 @@ public class Task implements Serializable {
     @JoinColumn(name = "fk_academicWork")
     private AcademicWork academicWork;
     
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskDeliver> taskDelivers;
 
     public AcademicWork getAcademicWork() {
@@ -104,7 +109,14 @@ public class Task implements Serializable {
         return taskDelivers;
     }
     public void setTaskDelivers(List<TaskDeliver> taskDelivers) {
-        this.taskDelivers = taskDelivers;
+        if (this.taskDelivers != null) {
+            this.taskDelivers.clear();
+            if (taskDelivers != null) {
+                this.taskDelivers.addAll(taskDelivers);
+            }
+        } else {
+            this.taskDelivers = taskDelivers;
+        }
     }
     
 }
